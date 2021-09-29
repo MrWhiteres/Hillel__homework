@@ -1,27 +1,15 @@
 #!/usr/bin/python3
 import random
 import string
-from flask import Flask, request
+from flask import Flask, request, render_template, url_for
 
 app = Flask('My first app')
+app.config["APPLICATION_ROOT"] = "/app"
 
 
 @app.route('/')
 def index():
-    return f"""
-        <html>
-         <head>
-            <title>Tutorial page</title>
-         </head>
-         <body>
-         <h1>General list</h1>
-         <a href='http://127.0.0.1:5000/random'>If you need random string, click here</a><br/>
-         <a href='http://127.0.0.1:5000/whoami'>If you need 
-         information of your browser, ip and server time, click here</a><br/>
-         <a href='http://127.0.0.1:5000/source_code'>if you need source code, click here</a>
-         </body> 
-        </html>
-          """
+    return render_template('index.html')
 
 
 @app.route('/whoami')
@@ -38,24 +26,14 @@ def who_am_i():
     ip = socket.gethostbyname(socket.getfqdn())
     now = datetime.datetime.now()
     now_time = now.strftime("%d-%m-%Y %H:%M")
-    return f"""
-        <html>
-         <head>
-            <title>User info</title>
-         </head>
-         <body>
-          <p>Your browser - {browser}</p>
-          <p>ip - {ip}</p>
-          <p>Server data and time - {now_time}</p>
-         </body> 
-        </html>
-          """
+    return render_template('whoami.html', browser=browser, ip=ip, now_time=now_time)
 
 
 @app.route('/source_code')
-def source_code():
+def Source_code():
     import inspect
-    return inspect.getsource(inspect.getmodule(inspect.currentframe()))
+    source_code = inspect.getsource(inspect.getmodule(inspect.currentframe()))
+    return render_template('source_code.html', source_code=source_code)
 
 
 def get_random_str(length, specials, digits):
@@ -92,24 +70,7 @@ def string_element():
 
     result, error = get_random_str(length, specials, digits)
 
-    return f"""
-    <html>
-     <head>
-        <title></title>
-     </head>
-     <body>
-        <h1>Random generator</h1> 
-     <form method='GET'>
-        length: <input type='number' name='length' value={length}/><br/>
-        specials: <input type='checkbox' name='specials' value='1'/><br/>
-        digits: <input type='checkbox' name='digits' value='1'/><br/>
-        <input type = 'submit'/>
-        <h2>Result = {result}</h2>
-        <font text='red'>{error if error else ''}</font>
-     </form>
-     </body> 
-    </html>
-      """
+    return render_template('random.html', result=result, error=error)
 
 
 if __name__ == '__main__':

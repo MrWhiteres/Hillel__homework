@@ -1,0 +1,22 @@
+{% extends 'init.html' %}
+
+{% block title %}
+Random generator
+{% endblock %}
+
+{% block body %}
+ <form method='GET'>
+        Length: <label>
+     <input type='number' name='length' value={length}/>
+ </label><br/>
+        Specials: <label>
+     <input type='checkbox' name='specials' value='1'/>
+ </label><br/>
+        Digits: <label>
+     <input type='checkbox' name='digits' value='1'/>
+ </label><br/>
+        <input type = 'submit'/>
+        <h2>Result = {{result}}</h2>
+        <span text='red'>{{error if error else ''}}</span>
+ </form><br/>
+{% endblock %}
