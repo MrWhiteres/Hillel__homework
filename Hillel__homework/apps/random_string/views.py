@@ -32,9 +32,9 @@ def get_random_str(length, specials, digits):
 
 
 def random_string(request):
-    length = forms.CharField(widget=forms.NumberInput(attrs={'length': 'length'}))
-    specials = forms.CheckboxInput()
-    digits = forms.CheckboxInput()
+    length = request.GET.get('length')
+    specials = request.GET.get('specials')
+    digits = request.GET.get('digits')
 
     result, error = get_random_str(length, specials, digits)
     if error is None:
