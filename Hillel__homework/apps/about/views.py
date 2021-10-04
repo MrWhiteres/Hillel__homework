@@ -7,7 +7,10 @@ def index(request):
 
 
 def source_code(request):
-    return None
+    import inspect
+    source_code = inspect.getsource(inspect.getmodule(inspect.currentframe()))
+    data = {"source_code":source_code}
+    return render(request, 'source_code.html', context=data)
 
 
 def whoami(request):

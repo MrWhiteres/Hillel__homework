@@ -20,6 +20,7 @@ from Hillel__homework.apps import about, random_string
 from Hillel__homework.apps.about import urls
 
 urlpatterns = [
+    path('', include('page.urls')),
     path('random_string/', include('random_string.urls')),
     path('about/', include('about.urls')),
     path('admin/', admin.site.urls),

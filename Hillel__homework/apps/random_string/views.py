@@ -7,11 +7,13 @@ from django.shortcuts import render
 
 def get_random_str(length, specials, digits):
     error = None
+    if length is None:
+        length = 0
     try:
         length = int(length)
     except ValueError:
         return None, 'Length should be int'
-    if 1 > length or length > 100:
+    if 0 > length or length > 100:
         return None, 'Length should be 1~100'
     if digits not in (None, '1'):
         return None, 'Digits Should be 0 or 1'
