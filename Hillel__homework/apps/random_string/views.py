@@ -41,6 +41,8 @@ def random_string(request):
     result, error = get_random_str(length, specials, digits)
     if error is None:
         error = ''
+    if result is None:
+        result = ''
 
     date = {'result': result, 'error': error}
     return render(request, 'random.html', context=date)

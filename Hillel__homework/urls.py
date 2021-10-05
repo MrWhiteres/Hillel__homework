@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 
 from Hillel__homework.apps import about, random_string
 from Hillel__homework.apps.about import urls
